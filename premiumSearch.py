@@ -13,14 +13,38 @@ import bson.json_util as json_util
 from datetime import date
 
 # Initialize by Dataset
+# client = pymongo.MongoClient('mongodb+srv://maliksaad:maliksaad123@cluster0.2ztru3w.mongodb.net/?retryWrites=true&w=majority')
+
+# db = client.get_database('freelance-learning-platform')
+# collection = db['premiumsearchs']
+# collectionGigs = db['gigs']
+# collectionUser = db['users']
+
+# print("It is a client ",client.db)
+
+# try:
+#     client = pymongo.MongoClient('mongodb+srv://maliksaad:maliksaad123@cluster0.2ztru3w.mongodb.net/?retryWrites=true&w=majority')
+#     db = client.get_database('freelance-learning-platform')
+#     collection = db['premiumsearchs']
+#     collectionGigs = db['gigs']
+#     collectionUser = db['users']
+#     print("Connected Successfully")
+# except pymongo.errors.ConnectionFailure as e:
+#     print("Could not connect to MongoDB: %s" % e)
+
+
+
 client = pymongo.MongoClient('mongodb+srv://maliksaad:maliksaad123@cluster0.2ztru3w.mongodb.net/?retryWrites=true&w=majority')
-print(client)
-db = client['freelance-learning-app']
+# client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client.get_database('test')
 collection = db['premiumsearchs']
 collectionGigs = db['gigs']
 collectionUser = db['users']
+print("Connected Successfully")
 
-print(collection)
+
+
+
 
 # Cosine Similarity between two vectors
 def get_cosine(vec1, vec2):
@@ -90,22 +114,22 @@ def predict():
  
     # traverse in the string
     for ele in inputKeywordsList:
-        str1 += ele
+        str1 += ele+" "
    
     print(str1)
-    arr = []
-    for x in collection.find( ):
-    # for x in collection.aggregate([{"$project" : { 'projects.keywords': { '$in': [inputKeywordsList[0],inputKeywordsList] },'value': { '$ifNull': [ "$createdAt", "Unspecified" ] } }}]):
-    # for x in collection.aggregate([{"$search": {"index": 'search',"text": {"query": inputKeywordsList,"path": ['projects.keywords',],}}},]):
-      arr = arr + [x]
+    # for x in collection.find():
+    # for x in collection.aggregate([{"$search": {"index": 'search',"text": {"query": str1,"path": ['projects.keywords',],}}},]):
+    # for x in collection.find({'projects.keywords': { '$in': [inputKeywordsList[0],inputKeywordsList] }}):
 
-    # arr = collection.aggregate([{"$search": {"index": 'search',"text": {"query": str1,"path": ['projects.keywords',],}}},])
+    arr = []
+    for x in collection.aggregate([{"$search": {"index": 'search',"text": {"query": str1,"path": ['projects.keywords',],}}},]):
+        arr = arr + [x]
     # arr = list(arr)
     print(arr)
 
 
 
-
+    # return "Hello"
     # get All the freelancers who is having the similar projects done
     usersArray = []
     count = 0
@@ -233,4 +257,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(port=9256,debug=True)
+    app.run(debug=True)

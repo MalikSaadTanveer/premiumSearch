@@ -231,7 +231,7 @@ def predict():
 
 
 
-@app.route('/premiumSearch',methods=['POST'])
+@app.route('/premium',methods=['GET'])
 def predict():
     print("malik saad form flask")
     return jsonify({"data":"Hello"})

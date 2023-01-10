@@ -231,11 +231,6 @@ def predict():
 
 
 
-@app.route('/premium',methods=['GET'])
-def predict():
-    print("malik saad form flask")
-    return jsonify({"data":"Hello"})
-
 
 if __name__ == '__main__':
     app.run(port=9256,debug=True)

@@ -230,5 +230,12 @@ def predict():
     # print(get_result('I need a C sharp Developer who can login into account', 'I need a C# Developer login developer account'))
 
 
+
+@app.route('/premiumSearch',methods=['POST'])
+def predict():
+    print("malik saad form flask")
+    return jsonify({"data":"Hello"})
+
+
 if __name__ == '__main__':
     app.run(port=9256,debug=True)
